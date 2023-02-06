@@ -1,0 +1,29 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Styles/style.uss?fileID=7433441132597879392&amp;guid=86df88eb5cbc3d2428743d92626d8dda&amp;type=3#style" />
+    <ui:VisualElement name="Panel" class="panel" style="height: 341px; width: 280px; min-width: 280px; min-height: 0; background-color: rgba(53, 48, 48, 0.89); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; max-width: 280px; flex-direction: column; justify-content: center; align-items: center;">
+        <ui:Label text="Calculator" display-tooltip-when-elided="false" name="Title" enable-rich-text="false" style="-unity-font-style: bold;" />
+        <ui:Label text="0" display-tooltip-when-elided="true" name="NumberOutput" enable-rich-text="false" style="-unity-text-align: middle-right; width: 185px; align-items: center; justify-content: space-between;" />
+        <ui:VisualElement name="InputPanel" style="flex-direction: row; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; min-width: 0; min-height: 0; align-items: flex-start; justify-content: space-between; flex-wrap: wrap;">
+            <ui:VisualElement name="NumericPanel" style="flex-direction: row; flex-wrap: wrap; min-width: 0; min-height: 0; width: 150px; align-items: center; justify-content: center; height: 176px;">
+                <ui:Button text="1" display-tooltip-when-elided="false" name="OneButton" class="btn numeric-btn" style="width: 40px; height: 40px;" />
+                <ui:Button text="2" display-tooltip-when-elided="false" enable-rich-text="true" name="TwoButton" class="btn numeric-btn" style="width: 40px; height: 40px;" />
+                <ui:Button text="3" display-tooltip-when-elided="false" enable-rich-text="true" name="ThreeButton" class="btn numeric-btn" style="width: 40px; height: 40px;" />
+                <ui:Button text="4" display-tooltip-when-elided="false" enable-rich-text="true" name="FourButton" class="btn numeric-btn" style="width: 40px; height: 40px;" />
+                <ui:Button text="5" display-tooltip-when-elided="false" name="FiveButton" class="btn numeric-btn" style="width: 40px; height: 40px;" />
+                <ui:Button text="6" display-tooltip-when-elided="false" name="SixButton" class="btn numeric-btn" style="width: 40px; height: 40px;" />
+                <ui:Button text="7" display-tooltip-when-elided="false" name="SevenButton" class="btn numeric-btn" style="width: 40px; height: 40px;" />
+                <ui:Button text="8" display-tooltip-when-elided="false" name="EightButton" class="btn numeric-btn" style="width: 40px; height: 40px;" />
+                <ui:Button text="9" display-tooltip-when-elided="false" name="NineButton" class="btn numeric-btn" style="width: 40px; height: 40px; background-color: rgba(188, 188, 188, 0);" />
+                <ui:Button text="0" display-tooltip-when-elided="false" name="ZeroButton" class="btn numeric-btn" style="width: 40px; height: 40px; background-color: rgba(188, 188, 188, 0);" />
+                <ui:Button text="=" display-tooltip-when-elided="true" name="CalculateButton" class="btn numeric-btn" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; margin-left: 5px; margin-right: 10px; margin-top: 0; margin-bottom: 0; background-color: rgba(188, 188, 188, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); width: 80px; height: 40px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="OperationPanel" style="flex-direction: column; flex-wrap: wrap; flex-shrink: 1; align-items: center; justify-content: center; width: 40px; height: 176px;">
+                <ui:Button text="-" display-tooltip-when-elided="false" name="MinusButton" class="btn operate-btn" style="width: 40px; height: 40px;" />
+                <ui:Button text="+" display-tooltip-when-elided="false" name="PlusButton" class="btn operate-btn" style="height: 40px; width: 40px;" />
+                <ui:Button text="*" display-tooltip-when-elided="false" name="MultipleButton" class="btn operate-btn" style="width: 40px; height: 40px;" />
+                <ui:Button text="/" display-tooltip-when-elided="false" name="DivineButton" class="btn operate-btn" style="width: 40px; height: 40px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Button text="Clear" display-tooltip-when-elided="true" name="ClearButton" class="btn" style="width: 181px;" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <Style src="project://database/Assets/Styles/style.uss?fileID=7433441132597879392&amp;guid=86df88eb5cbc3d2428743d92626d8dda&amp;type=3#style" />
+    <ui:VisualElement name="Panel" />
+</ui:UXML>
