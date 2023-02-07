@@ -1,15 +1,62 @@
 .panel {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto;
     -unity-font-style: bold;
     -unity-text-align: upper-center;
-    color: rgba(206, 255, 194, 255);
-    background-color: rgba(226, 215, 187, 255);
+    color: rgb(206, 255, 194);
+    height: 341px; 
+    width: 280px; 
+    background-color: rgba(53, 48, 48, 0.89); 
+    border-radius: 10px; 
+    border-bottom-left-radius: 10px; 
+    border-top-right-radius: 10px; 
+    border-bottom-right-radius: 10px; 
+    padding: 5px; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
 }
 
-.btn {
+.title__label {
+   -unity-font-style: bold;
+}
+
+.number__label {
+    -unity-text-align: middle-right; 
+    width: 185px; 
+    align-items: center; 
+    justify-content: space-between;
+}
+
+.input-panel {
+    flex-direction: row; 
+    margin: 10px; 
+    align-items: flex-start; 
+    justify-content: space-between; 
+    flex-wrap: wrap;
+}
+
+.operate-panel {
+    flex-direction: column; 
+    flex-wrap: wrap; 
+    flex-shrink: 1; 
+    align-items: center; 
+    justify-content: center; 
+    width: 40px; 
+    height: 176px;
+}
+
+.numeric-panel {
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    min-width: 0; 
+    min-height: 0; 
+    width: 150px; 
+    align-items: center; 
+    justify-content: center; 
+    height: 176px;
+}
+
+.button {
     background-color: rgba(56, 56, 56, 0);
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
@@ -17,10 +64,23 @@
     border-bottom-color: rgba(0, 0, 0, 0);
 }
 
-.operate-btn {
-    color: rgba(229, 35, 0, 255);
+.operate-panel__button {
+    color: rgb(229, 35, 0);
+    width: 40px;
+    height: 40px;
 }
 
-.numeric-btn {
-    color: rgba(155, 182, 209, 255);
+.numeric-panel__button {
+    color: rgb(155, 182, 209);
+    width: 40px;
+    height: 40px;
+}
+
+.calculate-panel__button {
+    width: 88px;
+    height: 40px;
+}
+
+.clear__button {
+    width: 181px;
 }

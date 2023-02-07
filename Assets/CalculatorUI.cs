@@ -6,71 +6,48 @@ using System;
 
 public class CalculatorUI : MonoBehaviour
 {
-    Button clearButton;
-    Button oneButton;
-    Button twoButton;
-    Button threeButton;
-    Button fourButton;
-    Button fiveButton;
-    Button sixButton;
-    Button sevenButton;
-    Button eightButton;
-    Button nineButton;
-    Button zeroButton;
-    Button calculateButton;
-    Button plusButton;
-    Button minusButton;
-    Button divineButton;
-    Button multipleButton;
+    private Button clearButton;
+    private Button calculateButton;
+    private Button plusButton;
+    private Button minusButton;
+    private Button divineButton;
+    private Button multipleButton;
+    private Label text;
+    private List<Button> buttons;
 
-    Label text;
+    private string[] button_Titles = new string[] {
+        "ZeroButton", "OneButton", "TwoButton", "ThreeButton", "FourButton", "FiveButton",
+        "SixButton", "SevenButton", "EightButton", "NineButton"
+    };
 
     double num = 0;
     int plus_count_clicked = 0;
     int minus_count_clicked = 0;
     int multiple_count_clicked = 0;
     int divine_count_clicked = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     void OnEnable()
     {
+        buttons = new List<Button>();
         //Получаем ссылку на компонент UIDocument
         var uiDocument = GetComponent<UIDocument>();
         //Находим кнопку таким запросом, в параметр передаем имя кнопки
+        for (int i = 0;i < button_Titles.Length; i++)
+        {
+            Button button = uiDocument.rootVisualElement.Q<Button>(button_Titles[i]);
+            button.RegisterCallback<ClickEvent, int>(Input, i);
+            buttons.Add(button); 
+        }
         clearButton = uiDocument.rootVisualElement.Q<Button>("ClearButton");
-        oneButton = uiDocument.rootVisualElement.Q<Button>("OneButton");
-        twoButton = uiDocument.rootVisualElement.Q<Button>("TwoButton");
-        threeButton = uiDocument.rootVisualElement.Q<Button>("ThreeButton");
-        fourButton = uiDocument.rootVisualElement.Q<Button>("FourButton");
-        fiveButton = uiDocument.rootVisualElement.Q<Button>("FiveButton");
-        sixButton = uiDocument.rootVisualElement.Q<Button>("SixButton");
-        sevenButton = uiDocument.rootVisualElement.Q<Button>("SevenButton");
-        eightButton = uiDocument.rootVisualElement.Q<Button>("EightButton");
-        nineButton = uiDocument.rootVisualElement.Q<Button>("NineButton");
-        zeroButton = uiDocument.rootVisualElement.Q<Button>("ZeroButton");
         plusButton = uiDocument.rootVisualElement.Q<Button>("PlusButton");
         minusButton = uiDocument.rootVisualElement.Q<Button>("MinusButton");
         multipleButton = uiDocument.rootVisualElement.Q<Button>("MultipleButton");
         divineButton = uiDocument.rootVisualElement.Q<Button>("DivineButton");
         calculateButton = uiDocument.rootVisualElement.Q<Button>("CalculateButton");
         text = uiDocument.rootVisualElement.Q<Label>("NumberOutput");
+
         //Регистрируем событие нажатия кнопки
         clearButton.RegisterCallback<ClickEvent>(Clear);
-        oneButton.RegisterCallback<ClickEvent>(InputOne);
-        twoButton.RegisterCallback<ClickEvent>(InputTwo);
-        threeButton.RegisterCallback<ClickEvent>(InputThree);
-        fourButton.RegisterCallback<ClickEvent>(InputFour);
-        fiveButton.RegisterCallback<ClickEvent>(InputFive);
-        sixButton.RegisterCallback<ClickEvent>(InputSix);
-        sevenButton.RegisterCallback<ClickEvent>(InputSeven);
-        eightButton.RegisterCallback<ClickEvent>(InputEight);
-        nineButton.RegisterCallback<ClickEvent>(InputNine);
-        zeroButton.RegisterCallback<ClickEvent>(InputZero);
-
         plusButton.RegisterCallback<ClickEvent>(Plus);
         minusButton.RegisterCallback<ClickEvent>(Minus);
         multipleButton.RegisterCallback<ClickEvent>(Multiple);
@@ -84,94 +61,14 @@ public class CalculatorUI : MonoBehaviour
         num = 0;
     }
 
-    void InputOne(ClickEvent e)
+    void Input(ClickEvent e, int num)
     {
         if(text.text == "0")
         {
             text.text = "";
         }
-        text.text += "1";
-    }
 
-    void InputTwo(ClickEvent e)
-    {
-        if (text.text == "0")
-        {
-            text.text = "";
-        }
-        text.text += "2";
-    }
-
-    void InputThree(ClickEvent e)
-    {
-        if (text.text == "0")
-        {
-            text.text = "";
-        }
-        text.text += "3";
-    }
-
-    void InputFour(ClickEvent e)
-    {
-        if (text.text == "0")
-        {
-            text.text = "";
-        }
-        text.text += "4";
-    }
-
-    void InputFive(ClickEvent e)
-    {
-        if (text.text == "0")
-        {
-            text.text = "";
-        }
-        text.text += "5";
-    }
-
-    void InputSix(ClickEvent e)
-    {
-        if (text.text == "0")
-        {
-            text.text = "";
-        }
-        text.text += "6";
-    }
-
-    void InputSeven(ClickEvent e)
-    {
-        if (text.text == "0")
-        {
-            text.text = "";
-        }
-        text.text += "7";
-    }
-
-    void InputEight(ClickEvent e)
-    {
-        if (text.text == "0")
-        {
-            text.text = "";
-        }
-        text.text += "8";
-    }
-
-    void InputNine(ClickEvent e)
-    {
-        if (text.text == "0")
-        {
-            text.text = "";
-        }
-        text.text += "9";
-    }
-
-    void InputZero(ClickEvent e)
-    {
-        if (text.text == "0")
-        {
-            text.text = "";
-        }
-        text.text += "0";
+        text.text += $"{num}";
     }
 
     void Plus(ClickEvent e)
@@ -252,10 +149,5 @@ public class CalculatorUI : MonoBehaviour
         }
 
         text.text = $"{num}";
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
