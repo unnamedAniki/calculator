@@ -6,148 +6,217 @@ using System;
 
 public class CalculatorUI : MonoBehaviour
 {
-    private Button clearButton;
-    private Button calculateButton;
-    private Button plusButton;
-    private Button minusButton;
-    private Button divineButton;
-    private Button multipleButton;
-    private Label text;
-    private List<Button> buttons;
+    private Button _clearButton;
+    private Button _calculateButton;
+    private Button _plusButton;
+    private Button _minusButton;
+    private Button _divineButton;
+    private Button _multipleButton;
+    private Label _text;
+    private List<Button> _resultericButtons;
 
-    private string[] button_Titles = new string[] {
+    private string[] _resultericButtonTitles = new string[] {
         "ZeroButton", "OneButton", "TwoButton", "ThreeButton", "FourButton", "FiveButton",
         "SixButton", "SevenButton", "EightButton", "NineButton"
     };
 
-    double num = 0;
-    int plus_count_clicked = 0;
-    int minus_count_clicked = 0;
-    int multiple_count_clicked = 0;
-    int divine_count_clicked = 0;
+    private double _result = 0;
+    private bool _plusClicked = false;
+    private bool _minusClicked = false;
+    private bool _multipleClicked = false;
+    private bool _divineClicked = false;
 
     void OnEnable()
     {
-        buttons = new List<Button>();
+        _resultericButtons = new List<Button>();
         //Получаем ссылку на компонент UIDocument
         var uiDocument = GetComponent<UIDocument>();
         //Находим кнопку таким запросом, в параметр передаем имя кнопки
-        for (int i = 0;i < button_Titles.Length; i++)
+        for (int i = 0;i < _resultericButtonTitles.Length; i++)
         {
-            Button button = uiDocument.rootVisualElement.Q<Button>(button_Titles[i]);
-            button.RegisterCallback<ClickEvent, int>(Input, i);
-            buttons.Add(button); 
+            Button numericButton = uiDocument.rootVisualElement.Q<Button>(_resultericButtonTitles[i]);
+            numericButton.RegisterCallback<ClickEvent, int>(Input, i);
+            _resultericButtons.Add(numericButton); 
         }
-        clearButton = uiDocument.rootVisualElement.Q<Button>("ClearButton");
-        plusButton = uiDocument.rootVisualElement.Q<Button>("PlusButton");
-        minusButton = uiDocument.rootVisualElement.Q<Button>("MinusButton");
-        multipleButton = uiDocument.rootVisualElement.Q<Button>("MultipleButton");
-        divineButton = uiDocument.rootVisualElement.Q<Button>("DivineButton");
-        calculateButton = uiDocument.rootVisualElement.Q<Button>("CalculateButton");
-        text = uiDocument.rootVisualElement.Q<Label>("NumberOutput");
+        _clearButton = uiDocument.rootVisualElement.Q<Button>("ClearButton");
+        _plusButton = uiDocument.rootVisualElement.Q<Button>("PlusButton");
+        _minusButton = uiDocument.rootVisualElement.Q<Button>("MinusButton");
+        _multipleButton = uiDocument.rootVisualElement.Q<Button>("MultipleButton");
+        _divineButton = uiDocument.rootVisualElement.Q<Button>("DivineButton");
+        _calculateButton = uiDocument.rootVisualElement.Q<Button>("CalculateButton");
+        _text = uiDocument.rootVisualElement.Q<Label>("NumberOutput");
 
         //Регистрируем событие нажатия кнопки
-        clearButton.RegisterCallback<ClickEvent>(Clear);
-        plusButton.RegisterCallback<ClickEvent>(Plus);
-        minusButton.RegisterCallback<ClickEvent>(Minus);
-        multipleButton.RegisterCallback<ClickEvent>(Multiple);
-        divineButton.RegisterCallback<ClickEvent>(Divine);
-        calculateButton.RegisterCallback<ClickEvent>(Calculate);
+        _clearButton.RegisterCallback<ClickEvent>(Clear);
+        _plusButton.RegisterCallback<ClickEvent>(Plus);
+        _minusButton.RegisterCallback<ClickEvent>(Minus);
+        _multipleButton.RegisterCallback<ClickEvent>(Multiple);
+        _divineButton.RegisterCallback<ClickEvent>(Divine);
+        _calculateButton.RegisterCallback<ClickEvent>(Calculate);
     }
 
     void Clear(ClickEvent e)
     {
-        text.text = "0";
-        num = 0;
+        _text.text = "0";
+        _result = 0;
     }
 
     void Input(ClickEvent e, int num)
     {
-        if(text.text == "0")
+        if(_text.text == "0")
         {
-            text.text = "";
+            _text.text = "";
         }
 
-        text.text += $"{num}";
+        _text.text += $"{num}";
     }
 
     void Plus(ClickEvent e)
     {
-        num += Convert.ToDouble(text.text);
-        plus_count_clicked = 1;
-        minus_count_clicked = 0;
-        multiple_count_clicked = 0;
-        divine_count_clicked = 0;
-        text.text = "0";
+        var num = Convert.ToDouble(_text.text);
+        if (_minusClicked)
+        {
+            _result -= num;
+            _minusClicked = false;
+        }
+        else if (_multipleClicked)
+        {
+            _result *= num;
+            _multipleClicked = false;
+        }
+        else if (_divineClicked)
+        {
+            _result /= num;
+            _divineClicked = false;
+        }
+        else
+        {
+            _result += num;
+        }
+        _plusClicked = true;
+        _text.text = "0";
     }
 
     void Minus(ClickEvent e)
     {
-        num -= Convert.ToDouble(text.text);
-        minus_count_clicked = 1;
-        plus_count_clicked = 0;
-        multiple_count_clicked = 0;
-        divine_count_clicked = 0;
-        text.text = "0";
+        var num = Convert.ToDouble(_text.text);
+        if (_plusClicked)
+        {
+            _result += num;
+            _plusClicked = false;
+        }
+        else if (_multipleClicked)
+        {
+            _result *= num;
+            _multipleClicked = false;
+        }
+        else if (_divineClicked)
+        {
+            _result /= num;
+            _divineClicked = false;
+        }
+        else if (_result == 0)
+        {
+            _result = num;
+        }
+        else
+        {
+            _result -= num;
+        }
+        _minusClicked = true;
+        _text.text = "0";
     }
 
     void Multiple(ClickEvent e)
     {
-        if(num == 0)
+        var num = Convert.ToDouble(_text.text);
+        if (_plusClicked)
         {
-            num = Convert.ToDouble(text.text);
+            _result += num;
+            _plusClicked = false;
+        }
+        else if (_minusClicked)
+        {
+            _result -= num;
+            _minusClicked = false;
+        }
+        else if (_divineClicked)
+        {
+            _result /= num;
+            _divineClicked = false;
+        }
+        else if (_result == 0)
+        {
+            _result = num;
         }
         else
         {
-            num *= Convert.ToDouble(text.text);
+            _result *= num;
         }
-        multiple_count_clicked = 1;
-        minus_count_clicked = 0;
-        plus_count_clicked = 0;
-        divine_count_clicked = 0;
-        text.text = "0";
+        _multipleClicked = true;
+        _text.text = "0";
     }
 
     void Divine(ClickEvent e)
     {
-        if (num == 0)
+        var num = Convert.ToDouble(_text.text);
+        if (_plusClicked)
         {
-            num = Convert.ToDouble(text.text);
+            _result += num;
+            _plusClicked = false;
+        }
+        else if (_minusClicked)
+        {
+            _result -= num;
+            _minusClicked = false;
+        }
+        else if (_multipleClicked)
+        {
+            _result *= num;
+            _multipleClicked = false;
+        }
+        else if (_result == 0)
+        {
+            _result = num;
         }
         else
         {
-            num /= Convert.ToDouble(text.text);
+            _result /= num;
         }
-        divine_count_clicked = 1;
-        multiple_count_clicked = 0;
-        minus_count_clicked = 0;
-        plus_count_clicked = 0;
-        text.text = "0";
+        _divineClicked = true;
+        _multipleClicked = false;
+        _minusClicked = false;
+        _plusClicked = false;
+        _text.text = "0";
     }
 
+    void CheckButtonClicked()
+    {
+        if (_plusClicked)
+        {
+            _result += Convert.ToDouble(_text.text);
+            _plusClicked = false;
+        }
+        else if (_minusClicked)
+        {
+            _result -= Convert.ToDouble(_text.text);
+            _minusClicked = false;
+        }
+        else if (_multipleClicked)
+        {
+            _result *= Convert.ToDouble(_text.text);
+            _multipleClicked = false;
+        }
+        else if (_divineClicked)
+        {
+            _result /= Convert.ToDouble(_text.text);
+            _divineClicked = false;
+        }
+    }
     void Calculate(ClickEvent e)
     {
-        if(plus_count_clicked != 0)
-        {
-            num += Convert.ToDouble(text.text);
-            plus_count_clicked = 0;
-        }
-        if(minus_count_clicked != 0)
-        {
-            num -= Convert.ToDouble(text.text);
-            minus_count_clicked = 0;
-        }
-        if(multiple_count_clicked != 0)
-        {
-            num *= Convert.ToDouble(text.text);
-            multiple_count_clicked = 0;
-        }
-        if (divine_count_clicked != 0)
-        {
-            num /= Convert.ToDouble(text.text);
-            divine_count_clicked = 0;
-        }
-
-        text.text = $"{num}";
+        CheckButtonClicked();
+        _text.text = $"{_result}";
+        _result = 0;
     }
 }
