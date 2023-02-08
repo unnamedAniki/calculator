@@ -13,9 +13,9 @@ public class CalculatorUI : MonoBehaviour
     private Button _divineButton;
     private Button _multipleButton;
     private Label _text;
-    private List<Button> _resultericButtons;
+    private List<Button> _numericButtons;
 
-    private string[] _resultericButtonTitles = new string[] {
+    private string[] _numericButtonTitles = new string[] {
         "ZeroButton", "OneButton", "TwoButton", "ThreeButton", "FourButton", "FiveButton",
         "SixButton", "SevenButton", "EightButton", "NineButton"
     };
@@ -28,15 +28,15 @@ public class CalculatorUI : MonoBehaviour
 
     void OnEnable()
     {
-        _resultericButtons = new List<Button>();
+        _numericButtons = new List<Button>();
         //Получаем ссылку на компонент UIDocument
         var uiDocument = GetComponent<UIDocument>();
         //Находим кнопку таким запросом, в параметр передаем имя кнопки
-        for (int i = 0;i < _resultericButtonTitles.Length; i++)
+        for (int i = 0;i < _numericButtonTitles.Length; i++)
         {
-            Button numericButton = uiDocument.rootVisualElement.Q<Button>(_resultericButtonTitles[i]);
+            Button numericButton = uiDocument.rootVisualElement.Q<Button>(_numericButtonTitles[i]);
             numericButton.RegisterCallback<ClickEvent, int>(Input, i);
-            _resultericButtons.Add(numericButton); 
+            _numericButtons.Add(numericButton); 
         }
         _clearButton = uiDocument.rootVisualElement.Q<Button>("ClearButton");
         _plusButton = uiDocument.rootVisualElement.Q<Button>("PlusButton");
